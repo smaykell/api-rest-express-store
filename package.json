@@ -1,0 +1,35 @@
+{
+   "name": "api-rest-express-store",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "ts-node src/index.ts",
+      "dev": "nodemon src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "devDependencies": {
+      "@types/config": "^3.3.0",
+      "@types/express": "^4.17.17",
+      "@types/node": "^16.11.10",
+      "nodemon": "^2.0.22",
+      "ts-node": "10.7.0",
+      "typescript": "4.5.2"
+   },
+   "dependencies": {
+      "@types/express-jwt": "^7.4.2",
+      "@types/jsonwebtoken": "^9.0.1",
+      "body-parser": "^1.19.1",
+      "dotenv": "^16.0.3",
+      "express": "^4.17.2",
+      "express-jwt": "^8.4.1",
+      "jsonwebtoken": "^9.0.0",
+      "pg": "^8.4.0",
+      "reflect-metadata": "^0.1.13",
+      "typeorm": "0.3.12"
+   }
+}
