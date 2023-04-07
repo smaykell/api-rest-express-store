@@ -5,6 +5,9 @@ import { AppDataSource } from "./data-source";
 import { Routes } from "./routes";
 import { expressjwt } from "express-jwt";
 import { Request as RequestWithUser } from "express-jwt";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 AppDataSource.initialize()
   .then(async () => {
@@ -18,7 +21,7 @@ AppDataSource.initialize()
         (app as any)[route.method](
           route.route,
           expressjwt({
-            secret: "miClaveSecreta",
+            secret: process.env.SECRET_KEY || "miClaveSecreta",
             algorithms: ["HS256"],
           }),
           (req: RequestWithUser, res: Response, next: Function) => {
