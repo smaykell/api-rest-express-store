@@ -16,11 +16,11 @@ import { Producto } from './Producto';
     @Column({ type: 'int' })
     cantidad: number;
   
-    @ManyToOne((type) => Producto, (producto) => producto.detallesCarrito)
+    @ManyToOne(() => Producto, (producto) => producto.detallesCarrito)
     @JoinColumn({ name: 'producto_id' })
     producto: Producto;
   
-    @ManyToOne((type) => Usuario, (usuario) => usuario.detallesCarrito)
+    @ManyToOne(() => Usuario, (usuario) => usuario.detallesCarrito)
     @JoinColumn({ name: 'usuario_id' })
     usuario: Usuario;
   }

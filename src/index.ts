@@ -1,73 +1,27 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import { Request, Response } from "express";
 import { AppDataSource } from "./data-source";
-import { Routes } from "./routes";
-import { expressjwt } from "express-jwt";
-import { Request as RequestWithUser } from "express-jwt";
+import * as bodyParser from "body-parser";
 import * as dotenv from "dotenv";
-
+import * as express from "express";
+import authRoutes from "./routes/auth.routes";
+import categoriasRoutes from "./routes/categorias.routes";
+import detallesCarritoRoutes from "./routes/detalles-carrito.routes";
+import productosRoutes from "./routes/productos.routes";
 dotenv.config();
 
 AppDataSource.initialize()
   .then(async () => {
-    // create express app
     const app = express();
     app.use(bodyParser.json());
 
-    // register express routes from defined application routes
-    Routes.forEach((route) => {
-      if (route.protected) {
-        (app as any)[route.method](
-          route.route,
-          expressjwt({
-            secret: process.env.SECRET_KEY || "miClaveSecreta",
-            algorithms: ["HS256"],
-          }),
-          (req: RequestWithUser, res: Response, next: Function) => {
-            const result = new (route.controller as any)()[route.action](
-              req,
-              res,
-              next
-            );
-            if (result instanceof Promise) {
-              result.then((result) =>
-                result !== null && result !== undefined
-                  ? res.send(result)
-                  : undefined
-              );
-            } else if (result !== null && result !== undefined) {
-              res.json(result);
-            }
-          }
-        );
-      } else {
-        (app as any)[route.method](
-          route.route,
-          (req: Request, res: Response, next: Function) => {
-            const result = new (route.controller as any)()[route.action](
-              req,
-              res,
-              next
-            );
-            if (result instanceof Promise) {
-              result.then((result) =>
-                result !== null && result !== undefined
-                  ? res.send(result)
-                  : undefined
-              );
-            } else if (result !== null && result !== undefined) {
-              res.json(result);
-            }
-          }
-        );
-      }
-    });
+    app.use("/auth", authRoutes);
+    app.use("/categorias", categoriasRoutes);
+    app.use("/productos", productosRoutes);
+    app.use("/detalles-carrito", detallesCarritoRoutes);
 
-    // setup express app here
-    // ...
+    app.all("*", (req, res) =>
+      res.send("You've tried reaching a route that doesn't exist.")
+    );
 
-    // start express server
     app.listen(3000);
 
     console.log(

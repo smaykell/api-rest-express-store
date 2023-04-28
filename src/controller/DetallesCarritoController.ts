@@ -1,7 +1,7 @@
 import { Request } from "express-jwt";
 import { AppDataSource } from "../data-source";
 import { DetallesCarrito } from "../entity/DetallesCarrito";
-import { NextFunction, Response } from "express";
+import { Response } from "express";
 import { Usuario } from "../entity/Usuario";
 import { Producto } from "../entity/Producto";
 
@@ -10,7 +10,7 @@ export class DetallesCarritoController {
   private usuarioRepository = AppDataSource.getRepository(Usuario);
   private productosRepository = AppDataSource.getRepository(Producto);
 
-  async findByUserId(request: Request, response: Response, next: NextFunction) {
+  async findByUserId(request: Request) {
     const userId = parseFloat(request.auth.sub);
     return await this.carritoRepository.find({
       where: {
@@ -22,11 +22,7 @@ export class DetallesCarritoController {
     });
   }
 
-  async addDetalleCarrito(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) {
+  async addDetalleCarrito(request: Request, response: Response) {
     const userId = parseFloat(request.auth.sub);
 
     const { producto: productoId, cantidad } = request.body;
@@ -81,11 +77,7 @@ export class DetallesCarritoController {
     }
   }
 
-  async updateDetalleCarrito(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) {
+  async updateDetalleCarrito(request: Request, response: Response) {
     const userId = parseFloat(request.auth.sub);
     const detalleCarritoId = parseInt(request.params.id);
     const { cantidad } = request.body;
@@ -125,11 +117,7 @@ export class DetallesCarritoController {
     return detalleCarrito;
   }
 
-  async deleteDetalleCarrito(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) {
+  async deleteDetalleCarrito(request: Request, response: Response) {
     const userId = parseFloat(request.auth.sub);
     const detalleCarritoId = parseInt(request.params.id);
 
@@ -152,8 +140,8 @@ export class DetallesCarritoController {
     });
 
     if (!detalleCarrito) {
-        response.status(404);
-        return "Detalle de carrito no encontrado";
+      response.status(404);
+      return "Detalle de carrito no encontrado";
     }
 
     if (detalleCarrito.usuario.id !== usuario.id) {

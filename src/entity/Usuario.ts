@@ -21,7 +21,7 @@ import { DetallesCarrito } from './DetallesCarrito';
     @Column({ length: 50 })
     clave: string;
   
-    @OneToMany((type) => DetallesCarrito, (detalle) => detalle.usuario)
+    @OneToMany(() => DetallesCarrito, (detalle) => detalle.usuario)
     @JoinColumn({ name: 'usuario_id' })
     detallesCarrito: DetallesCarrito[];
   }

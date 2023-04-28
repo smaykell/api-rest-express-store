@@ -26,11 +26,11 @@ import { Categorias } from './Categorias';
     @Column({ length: 200 })
     imagen: string;
   
-    @ManyToOne((type) => Categorias, (categoria) => categoria.productos)
+    @ManyToOne(() => Categorias, (categoria) => categoria.productos)
     @JoinColumn({ name: 'categoria_id' })
     categoria: Categorias;
   
-    @OneToMany((type) => DetallesCarrito, (detalle) => detalle.producto)
+    @OneToMany(() => DetallesCarrito, (detalle) => detalle.producto)
     detallesCarrito: DetallesCarrito[];
   }
   
