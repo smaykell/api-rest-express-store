@@ -11,3 +11,9 @@ export const findUsuarioByCorreoAndClave = async (
     where: { correo, clave },
   });
 };
+
+export const findUsuarioById = async (id: number) => {
+  return await usuarioRepository.findOne({
+    where: { id },
+  });
+};

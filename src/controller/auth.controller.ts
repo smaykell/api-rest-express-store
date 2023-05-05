@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { findUsuarioByCorreoAndClave } from "../services/usuario.service";
+import { UnauthorizedException } from "../exception/UnauthorizedException";
 
 dotenv.config();
 
@@ -14,11 +15,13 @@ export const login = async (
 ) => {
   try {
     const { correo, clave } = req.body;
+    
     const usuario = await findUsuarioByCorreoAndClave(correo, clave);
 
+    console.log("usuario", usuario);
+
     if (!usuario) {
-      res.status(404);
-      return "Incorrect login credentials!";
+      throw new UnauthorizedException("Usuario o clave incorrectos");
     }
 
     const payload = { correo: usuario.correo, sub: usuario.id };

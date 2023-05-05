@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes";
 import categoriasRoutes from "./routes/categorias.routes";
 import detallesCarritoRoutes from "./routes/detalles-carrito.routes";
 import productosRoutes from "./routes/productos.routes";
+import { errorHandler } from "./middleware/exception.middleware";
 dotenv.config();
 
 AppDataSource.initialize()
@@ -17,9 +18,10 @@ AppDataSource.initialize()
     app.use("/categorias", categoriasRoutes);
     app.use("/productos", productosRoutes);
     app.use("/detalles-carrito", detallesCarritoRoutes);
+    app.use(errorHandler);
 
     app.all("*", (req, res) =>
-      res.send("You've tried reaching a route that doesn't exist.")
+      res.status(404).json({ message: "Route not found" })
     );
 
     app.listen(3000);

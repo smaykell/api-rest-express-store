@@ -19,6 +19,9 @@ import { Producto } from './Producto';
     @ManyToOne(() => Producto, (producto) => producto.detallesCarrito)
     @JoinColumn({ name: 'producto_id' })
     producto: Producto;
+
+    @Column({ type: 'decimal', precision: 10, scale: 2 })
+    precio: number;
   
     @ManyToOne(() => Usuario, (usuario) => usuario.detallesCarrito)
     @JoinColumn({ name: 'usuario_id' })

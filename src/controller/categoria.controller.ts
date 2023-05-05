@@ -5,6 +5,7 @@ import {
   findCategoriaById,
 } from "../services/categorias.service";
 import { findAllProductosPaginateByCategoria } from "../services/productos.service";
+import { NotFoundException } from "../exception/NotFoundException";
 
 export const getCategoriaById = async (
   req: Request,
@@ -17,8 +18,7 @@ export const getCategoriaById = async (
     const categoria = await findCategoriaById(id);
 
     if (!categoria) {
-      res.status(404);
-      return "Categoria no encontrada";
+      throw new NotFoundException("Categoria no encontrada");
     }
 
     res.json(categoria);

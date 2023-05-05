@@ -1,5 +1,5 @@
 import * as express from "express";
-import authMiddleware from "../auth.middleware";
+import authMiddleware from "../middleware/auth.middleware";
 import {
   getCategoriaById,
   getCategorias,
