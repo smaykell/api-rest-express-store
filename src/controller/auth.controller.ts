@@ -18,8 +18,6 @@ export const login = async (
     
     const usuario = await findUsuarioByCorreoAndClave(correo, clave);
 
-    console.log("usuario", usuario);
-
     if (!usuario) {
       throw new UnauthorizedException("Usuario o clave incorrectos");
     }
@@ -28,7 +26,7 @@ export const login = async (
     const token = jwt.sign(payload, secretKey, { expiresIn: "1h" });
 
     res.json({
-      accessTokem: token,
+      accessToken: token,
     });
   } catch (err) {
     next(err);

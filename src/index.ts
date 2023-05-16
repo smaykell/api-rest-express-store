@@ -7,11 +7,16 @@ import categoriasRoutes from "./routes/categorias.routes";
 import detallesCarritoRoutes from "./routes/detalles-carrito.routes";
 import productosRoutes from "./routes/productos.routes";
 import { errorHandler } from "./middleware/exception.middleware";
+import * as morgan from "morgan";
+
 dotenv.config();
 
 AppDataSource.initialize()
   .then(async () => {
     const app = express();
+
+    app.use(morgan('dev'))
+
     app.use(bodyParser.json());
 
     app.use("/auth", authRoutes);
