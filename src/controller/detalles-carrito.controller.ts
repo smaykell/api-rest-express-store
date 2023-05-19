@@ -10,7 +10,6 @@ import { DetallesCarrito } from "../entity/DetallesCarrito";
 
 type ItemResponse = {
   id: number;
-  img: string;
   nombre: string;
   precio: number;
   cantidad: number;
@@ -44,7 +43,6 @@ const detallesCarritoToDetallesCarritoResponse = (
       // crear item
       const item: ItemResponse = {
         id: detalleCarrito.id,
-        img: detalleCarrito.producto.imagen,
         nombre: detalleCarrito.producto.nombre,
         precio: parseFloat(detalleCarrito.precio.toString()),
         cantidad: detalleCarrito.cantidad,

@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -25,7 +26,7 @@ export class MeatSticker {
   )
   meatStickerStyle: MeatStickerStyle;
 
-  @OneToOne(() => Producto, (producto) => producto.meatStickers)
+  @ManyToOne(() => Producto, (producto) => producto.meatStickers)
   @JoinColumn({ name: "producto_id" })
   producto: Producto;
 }

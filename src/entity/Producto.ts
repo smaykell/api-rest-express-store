@@ -14,6 +14,7 @@ import { Media } from "./Media";
 import { MdediaURL } from "./MediaURL";
 import { Badge } from "./Badge";
 import { MeatSticker } from "./MeatSticker";
+import { Precio } from "./Precio";
 
 @Entity("productos")
 export class Producto {
@@ -47,14 +48,14 @@ export class Producto {
   @OneToMany(() => MeatSticker, (meatSticker) => meatSticker.producto)
   meatStickers: MeatSticker[];
 
-  @Column({ type: "decimal", precision: 10, scale: 2 })
-  precio: number;
+  @OneToMany(() => Precio, (precio) => precio.producto)
+  precios: Precio[];
+
+  @Column({ type: "int" })
+  rating: number;
 
   @Column({ type: "int" })
   existencia: number;
-
-  @Column({ length: 200 })
-  imagen: string;
 
   @ManyToOne(() => Categorias, (categoria) => categoria.productos)
   @JoinColumn({ name: "categoria_id" })

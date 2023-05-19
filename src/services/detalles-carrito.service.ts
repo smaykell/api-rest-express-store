@@ -37,7 +37,7 @@ export const addDetalleCarritoByUserId = async (
 
   if (detalleCarrito) {
     detalleCarrito.cantidad = detalleCarrito.cantidad + cantidad;
-    detalleCarrito.precio = producto.precio;
+    detalleCarrito.precio = 0;
     await carritoRepository.save(detalleCarrito);
     return detalleCarrito;
   } else {
@@ -45,7 +45,7 @@ export const addDetalleCarritoByUserId = async (
       cantidad: cantidad,
       producto,
       usuario,
-      precio: producto.precio,
+      precio: 0,
     });
 
     await carritoRepository.save(detalleCarrito);

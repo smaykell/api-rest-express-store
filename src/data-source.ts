@@ -12,6 +12,7 @@ import { Badge } from "./entity/Badge";
 import { BadgeStyle } from "./entity/BadgeStyle";
 import { MeatSticker } from "./entity/MeatSticker";
 import { MeatStickerStyle } from "./entity/MeatStickerStyle";
+import { Precio } from "./entity/Precio";
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ export const AppDataSource = new DataSource({
     BadgeStyle,
     MeatSticker,
     MeatStickerStyle,
+    Precio,
   ],
   migrations: [],
   subscribers: [],

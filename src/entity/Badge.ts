@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -19,7 +20,7 @@ export class Badge {
   @OneToOne(() => BadgeStyle, (badgeStyle) => badgeStyle.badge)
   badgeStyle: BadgeStyle;
 
-  @OneToOne(() => Producto, (producto) => producto.badges)
+  @ManyToOne(() => Producto, (producto) => producto.badges)
   @JoinColumn({ name: "producto_id" })
   producto: Producto;
 }
