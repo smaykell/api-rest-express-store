@@ -7,6 +7,16 @@ const productosRepository = AppDataSource.getRepository(Producto);
 export const findProductoById = async (id: number) => {
   return await productosRepository.findOne({
     where: { id },
+    relations: [
+      "precios",
+      "mediaUrls",
+      "media",
+      "badges",
+      "badges.badgeStyle",
+      "meatStickers",
+      "meatStickers.meatStickerStyle",
+      "especificaciones",
+    ],
   });
 };
 
