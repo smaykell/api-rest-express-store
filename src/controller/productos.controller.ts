@@ -1,6 +1,24 @@
 import { NextFunction, Response } from "express";
-import { findAllProductosPaginate } from "../services/productos.service";
+import { findAllProductosPaginate, findProductoById } from "../services/productos.service";
 import { Request } from "express-jwt";
+import { NotFoundException } from "../exception/NotFoundException";
+
+export const getProductById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = parseInt(req.params.id as string);
+    const producto = await findProductoById(id);
+
+    if (!producto)  throw new NotFoundException("Producto no encontrado");
+
+    res.json(producto);
+  } catch (err) {
+    next(err);
+  }
+};
 
 export const getProductosPaginate = async (
   req: Request,

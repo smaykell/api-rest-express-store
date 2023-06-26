@@ -7,6 +7,16 @@ const productosRepository = AppDataSource.getRepository(Producto);
 export const findProductoById = async (id: number) => {
   return await productosRepository.findOne({
     where: { id },
+    relations: [
+      "precios",
+      "mediaUrls",
+      "media",
+      "badges",
+      "badges.badgeStyle",
+      "meatStickers",
+      "meatStickers.meatStickerStyle",
+      "especificaciones",
+    ],
   });
 };
 
@@ -26,6 +36,16 @@ export const findAllProductosPaginate = async (
     where: findOptionsWhere,
     skip: (page - 1) * limit,
     take: limit,
+    relations: [
+      "precios",
+      "mediaUrls",
+      "media",
+      "badges",
+      "badges.badgeStyle",
+      "meatStickers",
+      "meatStickers.meatStickerStyle",
+      "especificaciones",
+    ],
   });
 
   return {
@@ -55,6 +75,16 @@ export const findAllProductosPaginateByCategoria = async (
     where: findOptionsWhere,
     skip: (page - 1) * limit,
     take: limit,
+    relations: [
+      "precios",
+      "mediaUrls",
+      "media",
+      "badges",
+      "badges.badgeStyle",
+      "meatStickers",
+      "meatStickers.meatStickerStyle",
+      "especificaciones",
+    ],
   });
 
   return {

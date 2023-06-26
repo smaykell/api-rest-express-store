@@ -35,9 +35,17 @@ export const addDetalleCarritoByUserId = async (
     (detalle) => detalle.producto.id === productoId
   );
 
+  // recuperar el precio internetPrice
+
+  const precioInternet = producto.precios.find(
+    (precio) => precio.tipo === "internetPrice"
+  );
+
+  const precio = precioInternet ? precioInternet : producto.precios[0];
+
   if (detalleCarrito) {
     detalleCarrito.cantidad = detalleCarrito.cantidad + cantidad;
-    detalleCarrito.precio = producto.precio;
+    detalleCarrito.precio = precio.precio;
     await carritoRepository.save(detalleCarrito);
     return detalleCarrito;
   } else {
@@ -45,7 +53,7 @@ export const addDetalleCarritoByUserId = async (
       cantidad: cantidad,
       producto,
       usuario,
-      precio: producto.precio,
+      precio: precio.precio,
     });
 
     await carritoRepository.save(detalleCarrito);

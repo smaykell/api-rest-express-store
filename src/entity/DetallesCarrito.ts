@@ -1,9 +1,11 @@
 import {
     Column,
+    CreateDateColumn,
     Entity,
     JoinColumn,
     ManyToOne,
     PrimaryGeneratedColumn,
+    UpdateDateColumn,
   } from 'typeorm';
 import { Usuario } from './Usuario';
 import { Producto } from './Producto';
@@ -26,5 +28,12 @@ import { Producto } from './Producto';
     @ManyToOne(() => Usuario, (usuario) => usuario.detallesCarrito)
     @JoinColumn({ name: 'usuario_id' })
     usuario: Usuario;
+
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+
   }
   
