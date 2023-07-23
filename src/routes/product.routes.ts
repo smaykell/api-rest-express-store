@@ -1,10 +1,10 @@
 import * as express from "express";
 import authMiddleware from "../middleware/auth.middleware";
-import { getProductById, getProductosPaginate } from "../controller/productos.controller";
+import { getProductById, getProductsPaginate } from "../controller/product.controller";
 
 const router = express.Router();
 
-router.get("/", authMiddleware, getProductosPaginate);
+router.get("/", authMiddleware, getProductsPaginate);
 router.get("/:id", authMiddleware, getProductById);
 
 export default router;

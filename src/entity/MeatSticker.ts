@@ -2,14 +2,14 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
+  ManyToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { MeatStickerStyle } from "./MeatStickerStyle";
-import { Producto } from "./Producto";
+import { Product } from "./Product";
 
-@Entity("meat_stickers")
+@Entity()
 export class MeatSticker {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,11 +22,12 @@ export class MeatSticker {
 
   @OneToOne(
     () => MeatStickerStyle,
-    (meatStickerStyle) => meatStickerStyle.meatSticker
+    (meatStickerStyle) => meatStickerStyle.meatSticker,
+    { cascade: true }
   )
+  @JoinColumn()
   meatStickerStyle: MeatStickerStyle;
 
-  @ManyToOne(() => Producto, (producto) => producto.meatStickers)
-  @JoinColumn({ name: "producto_id" })
-  producto: Producto;
+  @ManyToMany(() => Product, (product) => product.meatStickers)
+  products: Product[];
 }

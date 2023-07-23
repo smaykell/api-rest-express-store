@@ -1,18 +1,17 @@
+import * as dotenv from "dotenv";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Usuario } from "./entity/Usuario";
-import { Producto } from "./entity/Producto";
-import { DetallesCarrito } from "./entity/DetallesCarrito";
-import { Categorias } from "./entity/Categorias";
-import * as dotenv from "dotenv";
-import { Especificacion } from "./entity/Especificacion";
-import { Media } from "./entity/Media";
-import { MdediaURL } from "./entity/MediaURL";
 import { Badge } from "./entity/Badge";
 import { BadgeStyle } from "./entity/BadgeStyle";
+import { Category } from "./entity/Category";
+import { Especification } from "./entity/Especification";
 import { MeatSticker } from "./entity/MeatSticker";
 import { MeatStickerStyle } from "./entity/MeatStickerStyle";
-import { Precio } from "./entity/Precio";
+import { MediaURL } from "./entity/MediaURL";
+import { Price } from "./entity/Price";
+import { Product } from "./entity/Product";
+import { ShoppingCartDetail } from "./entity/ShoppingCartDetail";
+import { User } from "./entity/User";
 
 dotenv.config();
 
@@ -26,18 +25,17 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
   entities: [
-    Usuario,
-    Producto,
-    DetallesCarrito,
-    Categorias,
-    Especificacion,
-    Media,
-    MdediaURL,
+    User,
+    Category,
+    Product,
+    ShoppingCartDetail,
+    Especification,
+    MediaURL,
     Badge,
     BadgeStyle,
     MeatSticker,
     MeatStickerStyle,
-    Precio,
+    Price,
   ],
   migrations: [],
   subscribers: [],

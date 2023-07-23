@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Producto } from "./Producto";
+import { Product } from "./Product";
 
-@Entity('media_urls')
-export class MdediaURL {
+@Entity()
+export class MediaURL {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -11,8 +11,8 @@ export class MdediaURL {
     url: string;
 
     // belongs to Producto
-    @ManyToOne(() => Producto, (producto) => producto.mediaUrls)
-    @JoinColumn({ name: 'producto_id' })
-    producto: Producto;
+    @ManyToOne(() => Product, (product) => product.mediaUrls)
+    @JoinColumn()
+    product: Product;
 
 }

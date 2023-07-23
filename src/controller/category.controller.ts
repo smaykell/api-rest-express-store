@@ -1,13 +1,13 @@
 import { NextFunction, Response } from "express";
 import { Request } from "express-jwt";
-import {
-  findAllCategorias,
-  findCategoriaById,
-} from "../services/categorias.service";
-import { findAllProductosPaginateByCategoria } from "../services/productos.service";
 import { NotFoundException } from "../exception/NotFoundException";
+import {
+  findAllCategories,
+  findCategoryById,
+} from "../services/category.service";
+import { findAllProductsPaginateByCategory } from "../services/product.service";
 
-export const getCategoriaById = async (
+export const getCategoryById = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -15,10 +15,10 @@ export const getCategoriaById = async (
   try {
     const id = parseInt(req.params.id);
 
-    const categoria = await findCategoriaById(id);
+    const categoria = await findCategoryById(id);
 
     if (!categoria) {
-      throw new NotFoundException("Categoria no encontrada");
+      throw new NotFoundException("Categoria not found");
     }
 
     res.json(categoria);
@@ -27,13 +27,13 @@ export const getCategoriaById = async (
   }
 };
 
-export const getCategorias = async (
+export const getCategories = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const categorias = await findAllCategorias();
+    const categorias = await findAllCategories();
 
     res.json(categorias);
   } catch (err) {
@@ -41,23 +41,23 @@ export const getCategorias = async (
   }
 };
 
-export const getProductosByCategoriaPaginate = async (
+export const getProductsByCategoryPaginate = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const categoriaId = parseInt(req.params.id);
+    const categoryId = parseInt(req.params.id);
 
-    const nombre = req.query.nombre as string;
+    const name = req.query.name as string;
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
 
-    const productosPage = await findAllProductosPaginateByCategoria(
-      categoriaId,
+    const productosPage = await findAllProductsPaginateByCategory(
+      categoryId,
       page,
       limit,
-      nombre
+      name
     );
 
     res.json(productosPage);

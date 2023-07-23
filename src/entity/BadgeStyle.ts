@@ -1,13 +1,12 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Badge } from "./Badge";
 
-@Entity("badge_style")
+@Entity()
 export class BadgeStyle {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,8 +14,7 @@ export class BadgeStyle {
   @Column({ length: 50 })
   backgroundColor: string;
 
-  @OneToOne(() => Badge, (badge) => badge.badgeStyle)
-  @JoinColumn({ name: "badge_id" })
+  @OneToOne(() => Badge, badge => badge.badgeStyle)
   badge: Badge;
 
   @Column({ length: 50 })
