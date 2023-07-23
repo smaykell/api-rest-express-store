@@ -1,13 +1,14 @@
-import { AppDataSource } from "./data-source";
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 import * as dotenv from "dotenv";
 import * as express from "express";
-import authRoutes from "./routes/auth.routes";
-import categoriasRoutes from "./routes/categorias.routes";
-import detallesCarritoRoutes from "./routes/detalles-carrito.routes";
-import productosRoutes from "./routes/productos.routes";
-import { errorHandler } from "./middleware/exception.middleware";
 import * as morgan from "morgan";
+import { AppDataSource } from "./data-source";
+import { errorHandler } from "./middleware/exception.middleware";
+import authRoutes from "./routes/auth.routes";
+import categoriasRoutes from "./routes/category.routes";
+import detallesCarritoRoutes from "./routes/shopping-car-detail.routes";
+import productosRoutes from "./routes/product.routes";
 
 dotenv.config();
 
@@ -15,14 +16,15 @@ AppDataSource.initialize()
   .then(async () => {
     const app = express();
 
-    app.use(morgan('dev'))
+    app.use(cors());
+    app.use(morgan("dev"));
 
     app.use(bodyParser.json());
 
-    app.use("/auth", authRoutes);
-    app.use("/categorias", categoriasRoutes);
-    app.use("/productos", productosRoutes);
-    app.use("/detalles-carrito", detallesCarritoRoutes);
+    app.use("/api/auth", authRoutes);
+    app.use("/api/categories", categoriasRoutes);
+    app.use("/api/products", productosRoutes);
+    app.use("/api/shoppingCart", detallesCarritoRoutes);
     app.use(errorHandler);
 
     app.all("*", (req, res) =>

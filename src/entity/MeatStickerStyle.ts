@@ -1,13 +1,12 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { MeatSticker } from "./MeatSticker";
 
-@Entity("meat_stickers_style")
+@Entity()
 export class MeatStickerStyle {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,7 +17,6 @@ export class MeatStickerStyle {
   @Column({ length: 50 })
   textColor: string;
 
-  @OneToOne(() => MeatSticker, (meatSticker) => meatSticker.meatStickerStyle)
-  @JoinColumn({ name: "meat_sticker_id" })
+  @OneToOne(() => MeatSticker, meatSticker => meatSticker.meatStickerStyle)
   meatSticker: MeatSticker;
 }

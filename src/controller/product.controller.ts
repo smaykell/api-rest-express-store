@@ -1,5 +1,8 @@
 import { NextFunction, Response } from "express";
-import { findAllProductosPaginate, findProductoById } from "../services/productos.service";
+import {
+  findAllProductsPaginate,
+  findProductById,
+} from "../services/product.service";
 import { Request } from "express-jwt";
 import { NotFoundException } from "../exception/NotFoundException";
 
@@ -10,29 +13,29 @@ export const getProductById = async (
 ) => {
   try {
     const id = parseInt(req.params.id as string);
-    const producto = await findProductoById(id);
+    const product = await findProductById(id);
 
-    if (!producto)  throw new NotFoundException("Producto no encontrado");
+    if (!product) throw new NotFoundException("Product not found");
 
-    res.json(producto);
+    res.json(product);
   } catch (err) {
     next(err);
   }
 };
 
-export const getProductosPaginate = async (
+export const getProductsPaginate = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const nombre = req.query.nombre as string;
+    const name = req.query.name as string;
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
 
-    const productosPage = await findAllProductosPaginate(page, limit, nombre);
+    const productsPage = await findAllProductsPaginate(page, limit, name);
 
-    res.json(productosPage);
+    res.json(productsPage);
   } catch (err) {
     next(err);
   }

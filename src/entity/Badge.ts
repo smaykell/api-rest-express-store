@@ -2,14 +2,14 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
+  ManyToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Producto } from "./Producto";
+import { Product } from "./Product";
 import { BadgeStyle } from "./BadgeStyle";
 
-@Entity("badges")
+@Entity()
 export class Badge {
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,10 +17,10 @@ export class Badge {
   @Column({ length: 50 })
   label: string;
 
-  @OneToOne(() => BadgeStyle, (badgeStyle) => badgeStyle.badge)
+  @OneToOne(() => BadgeStyle, badgeStyle => badgeStyle.badge, { cascade: true })
+  @JoinColumn()
   badgeStyle: BadgeStyle;
 
-  @ManyToOne(() => Producto, (producto) => producto.badges)
-  @JoinColumn({ name: "producto_id" })
-  producto: Producto;
+  @ManyToMany(() => Product, (product) => product.badges)
+  products: Product[];
 }
