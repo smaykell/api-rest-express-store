@@ -22,7 +22,7 @@ export class Price {
   price: number;
 
   @Column({ length: 10 })
-  simbol: string;
+  symbol: string;
 
   @Column({ length: 50 })
   type: string;
